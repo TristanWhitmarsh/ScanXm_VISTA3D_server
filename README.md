@@ -4,7 +4,7 @@ A small local Python server connecting [ScanXm](https://scanxm.com/) to
 NVIDIA's `NV-Segment-CT` (VISTA3D) model for automatic and interactive 3D CT
 segmentation.
 
-This repository is intentionally focused:
+It includes:
 
 - `CT_Full` performs automatic multi-structure CT segmentation.
 - `CT_Interactive` performs point-guided 3D CT segmentation.
@@ -28,8 +28,9 @@ before downloading the model.
 - Windows 10/11 or a modern 64-bit Linux distribution
 - Miniconda or Anaconda
 - Python 3.10
-- An NVIDIA GPU with sufficient VRAM
-- An NVIDIA driver compatible with the PyTorch CUDA 12.4 build
+- Sufficient system RAM for 3D medical-image inference
+- An NVIDIA GPU with sufficient VRAM is recommended, but not required
+- An NVIDIA driver compatible with CUDA 12.4 when using GPU acceleration
 - Internet access during installation and model download
 
 ## Installation
@@ -52,10 +53,18 @@ python -m pip install --upgrade pip setuptools wheel
 The shared environment is called `scanxm` so other ScanXm AI server
 repositories can be installed into the same working environment.
 
-Install the PyTorch CUDA 12.4 build:
+Choose one PyTorch installation.
+
+For an NVIDIA GPU, install the CUDA 12.4 build:
 
 ```text
 python -m pip install --index-url https://download.pytorch.org/whl/cu124 torch==2.6.0
+```
+
+For CPU-only operation:
+
+```text
+python -m pip install --index-url https://download.pytorch.org/whl/cpu torch==2.6.0
 ```
 
 Install the remaining pinned dependencies:
@@ -64,15 +73,17 @@ Install the remaining pinned dependencies:
 python -m pip install -r requirements.txt
 ```
 
-Confirm that PyTorch can access the GPU:
+Confirm which compute backend PyTorch will use:
 
 ```text
 python -c "import torch; print('PyTorch:', torch.__version__); print('CUDA:', torch.cuda.is_available()); print('GPU:', torch.cuda.get_device_name(0) if torch.cuda.is_available() else None)"
 ```
 
-`CUDA: True` should be displayed. Installing the full CUDA Toolkit is normally
-unnecessary because the PyTorch wheel supplies its CUDA runtime; an appropriate
-NVIDIA driver is still required.
+`CUDA: True` means VISTA3D will use the NVIDIA GPU. `CUDA: False` is valid and
+the server will use the CPU, although 3D model initialization and inference can
+be substantially slower. For GPU operation, installing the full CUDA Toolkit
+is normally unnecessary because the PyTorch wheel supplies its CUDA runtime;
+an appropriate NVIDIA driver is still required.
 
 ## Download NV-Segment-CT
 
@@ -150,7 +161,7 @@ ScanXm sends an `X-Session-ID` with requests. When this server sees a different
 session ID, it:
 
 1. Cancels publication of results belonging to the previous client.
-2. Waits for an in-progress CUDA operation to finish safely.
+2. Waits for an in-progress model inference operation to finish safely.
 3. Releases the VISTA3D model and interactive volume from memory/VRAM.
 4. Deletes incomplete temporary uploads.
 5. Allows the new ScanXm session to continue.

@@ -54,7 +54,7 @@ MIN_WEIGHT_MATCH_FRACTION = 0.85
 DEVICE = "cuda:0" if torch.cuda.is_available() else "cpu"
 
 # All model operations are serialized. In particular, session cleanup waits for
-# an in-flight CUDA operation before another ScanXm instance may load a model.
+# in-flight inference before another ScanXm instance may load a model.
 _RUNTIME_LOCK = threading.RLock()
 _INTERACTIVE = {
     "pipeline": None,

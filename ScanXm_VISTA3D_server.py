@@ -101,9 +101,9 @@ def _reset_job_state(reason: str = "") -> None:
 def _force_wipe_state(reason: str) -> None:
     """Cancel publishable work and synchronously release model/VRAM state.
 
-    CUDA kernels cannot safely be killed from another Python thread. The worker
-    serializes model operations, so this call waits for any current kernel to
-    finish before cleanup and before a new ScanXm session proceeds.
+    Model inference cannot safely be killed from another Python thread. The
+    worker serializes model operations, so this call waits for current inference
+    to finish before cleanup and before a new ScanXm session proceeds.
     """
 
     with _CLEANUP_LOCK:

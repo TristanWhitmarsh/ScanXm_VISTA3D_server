@@ -1,4 +1,4 @@
-# Install the CUDA build of PyTorch first, as described in README.md.
+# Install either the CUDA or CPU build of PyTorch first, as described in README.md.
 Flask==3.1.2
 PyYAML==6.0.3
 einops==0.8.2
@@ -10,4 +10,3 @@ safetensors==0.7.0
 scipy==1.11.4
 SimpleITK==2.3.1
 transformers==4.46.3
-
