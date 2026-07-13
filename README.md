@@ -156,8 +156,7 @@ session ID, it:
 5. Allows the new ScanXm session to continue.
 
 The `/stop` endpoint performs the same model and upload cleanup when requested
-by ScanXm. The server contains no RunPod termination or other cloud-specific
-logic.
+by ScanXm.
 
 ## Testing
 
