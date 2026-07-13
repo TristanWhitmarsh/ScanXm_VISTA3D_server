@@ -37,6 +37,10 @@ class ServerProtocolTests(unittest.TestCase):
         self.assertGreaterEqual(len(server.SERVER_KEY), 32)
         self.assertNotEqual(server.SERVER_KEY, "1234")
 
+    def test_model_directory_is_fixed_beside_server_files(self):
+        expected = Path(server.nv_segment_worker.__file__).resolve().parent / "NV-Segment-CT"
+        self.assertEqual(server.nv_segment_worker.MODEL_DIR, expected)
+
     def test_wrong_key_is_rejected(self):
         response = self.client.get("/wrong/info/")
         self.assertEqual(response.status_code, 401)

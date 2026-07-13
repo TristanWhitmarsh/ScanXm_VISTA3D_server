@@ -8,8 +8,6 @@ This repository is intentionally focused:
 
 - `CT_Full` performs automatic multi-structure CT segmentation.
 - `CT_Interactive` performs point-guided 3D CT segmentation.
-- No LLM, audio, SAM, MONAI bundle, MOOSE, TotalSegmentator or cloud/RunPod
-  services are included.
 - `NV-Segment-CTMR` is not supported because its model weights have
   non-commercial restrictions.
 - Uploaded CT data is processed in memory. Chunk files are temporary and are
@@ -34,9 +32,6 @@ before downloading the model.
 - An NVIDIA driver compatible with the PyTorch CUDA 12.4 build
 - Internet access during installation and model download
 
-Linux is NVIDIA's preferred/supported platform for the model. The server can
-also run on Windows with compatible Python packages and an NVIDIA GPU.
-
 ## Installation
 
 Clone the repository and enter it:
@@ -49,10 +44,13 @@ cd ScanXm_VISTA3D_server
 Create a dedicated Conda environment:
 
 ```text
-conda create -y -n scanxm-vista3d python=3.10.19
-conda activate scanxm-vista3d
+conda create -y -n scanxm python=3.10.19
+conda activate scanxm
 python -m pip install --upgrade pip setuptools wheel
 ```
+
+The shared environment is called `scanxm` so other ScanXm AI server
+repositories can be installed into the same working environment.
 
 Install the PyTorch CUDA 12.4 build:
 
@@ -105,29 +103,16 @@ ScanXm_VISTA3D_server/
     `-- vista3d_pretrained_model/
 ```
 
-To keep the model elsewhere, set `SCANXM_VISTA3D_MODEL_DIR` to its full path
-before starting the server.
-
-Windows Command Prompt example:
-
-```bat
-set SCANXM_VISTA3D_MODEL_DIR=D:\AI_models\NV-Segment-CT
-python ScanXm_VISTA3D_server.py
-```
-
-Linux Bash example:
-
-```bash
-export SCANXM_VISTA3D_MODEL_DIR=/opt/ai-models/NV-Segment-CT
-python ScanXm_VISTA3D_server.py
-```
+`NV-Segment-CT` must remain directly inside the repository folder, beside
+`ScanXm_VISTA3D_server.py`. The download command above places it there
+automatically.
 
 ## Start the server
 
 Activate the environment and run:
 
 ```text
-conda activate scanxm-vista3d
+conda activate scanxm
 python ScanXm_VISTA3D_server.py
 ```
 
@@ -188,13 +173,13 @@ Full inference validation requires the downloaded model and a compatible GPU.
 
 ### Model files not found
 
-Run `python download_model.py --accept-license`, or set
-`SCANXM_VISTA3D_MODEL_DIR` to the downloaded model directory.
+Run `python download_model.py --accept-license`. Confirm that the resulting
+`NV-Segment-CT` directory is directly beside `ScanXm_VISTA3D_server.py`.
 
 ### `CUDA: False`
 
 Check that the machine has an NVIDIA GPU, update its NVIDIA driver, confirm that
-the `scanxm-vista3d` environment is active, and reinstall PyTorch using the
+the `scanxm` environment is active, and reinstall PyTorch using the
 CUDA 12.4 index command above.
 
 ### Out of GPU memory
@@ -214,4 +199,3 @@ The separately downloaded NVIDIA repository contains code under Apache License
 See [THIRD_PARTY_LICENSES.md](THIRD_PARTY_LICENSES.md) for details.
 
 This independent project is not affiliated with or endorsed by NVIDIA.
-

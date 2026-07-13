@@ -1,8 +1,8 @@
 """In-memory NV-Segment-CT (VISTA3D) inference for ScanXm.
 
 Only the commercially usable NV-Segment-CT model is supported. Model files are
-loaded from an adjacent ``NV-Segment-CT`` directory (or from the directory in
-``SCANXM_VISTA3D_MODEL_DIR``) and are never bundled with this repository.
+loaded from an adjacent ``NV-Segment-CT`` directory and are never bundled with
+this repository.
 """
 
 from __future__ import annotations
@@ -46,9 +46,7 @@ _FULL_MODEL_NAMES = {"CT_Full"}
 _MODEL_NAMES = {item["name"] for item in NV_SEGMENT_MODELS}
 
 _HERE = Path(__file__).resolve().parent
-MODEL_DIR = Path(
-    os.environ.get("SCANXM_VISTA3D_MODEL_DIR", str(_HERE / "NV-Segment-CT"))
-).expanduser().resolve()
+MODEL_DIR = (_HERE / "NV-Segment-CT").resolve()
 
 ROI_SIZE = (128, 128, 128)
 OVERLAP = 0.3
