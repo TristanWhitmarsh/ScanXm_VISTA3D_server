@@ -158,35 +158,6 @@ session ID, it:
 The `/stop` endpoint performs the same model and upload cleanup when requested
 by ScanXm.
 
-## Testing
-
-Protocol and session tests do not require model weights:
-
-```text
-python -m unittest discover -s tests -v
-```
-
-Full inference validation requires the downloaded model and a compatible GPU.
-
-## Troubleshooting
-
-### Model files not found
-
-Run `python download_model.py --accept-license`. Confirm that the resulting
-`NV-Segment-CT` directory is directly beside `ScanXm_VISTA3D_server.py`.
-
-### `CUDA: False`
-
-Check that the machine has an NVIDIA GPU, update its NVIDIA driver, confirm that
-the `scanxm` environment is active, and reinstall PyTorch using the
-CUDA 12.4 index command above.
-
-### Out of GPU memory
-
-Crop the CT volume in ScanXm before starting the model, close other GPU-heavy
-applications, and use a GPU with more VRAM. The server serializes VISTA3D model
-operations to prevent two ScanXm sessions from loading it concurrently.
-
 ## Licensing
 
 The original integration code in this repository is licensed under the
