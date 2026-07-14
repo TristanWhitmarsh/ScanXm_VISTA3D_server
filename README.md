@@ -35,12 +35,108 @@ before downloading the model.
 
 ## Installation
 
+### Install Miniconda
+
+Skip this step if Miniconda or Anaconda is already installed. Miniconda is the
+smaller of the two and is sufficient here.
+
+On Windows, download and run the
+[Miniconda installer](https://repo.anaconda.com/miniconda/Miniconda3-latest-Windows-x86_64.exe).
+The default options are suitable, and the "Just Me" installation type does not
+require administrator rights. When it finishes, open **Anaconda Prompt** from the
+Start menu. Every command in this guide must be run there, because `conda` is not
+available in the standard Command Prompt or in PowerShell.
+
+On Linux, download and run the installer, answering `yes` when it offers to
+initialise Conda:
+
+```text
+wget https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh
+bash Miniconda3-latest-Linux-x86_64.sh
+```
+
+Then close and reopen the terminal so that `conda` is on the `PATH`. On Linux the
+ordinary terminal is used throughout this guide; there is no separate Anaconda
+Prompt.
+
+Confirm the installation on either system:
+
+```text
+conda --version
+```
+
+The Python version bundled with Miniconda does not matter, because the steps
+below create a separate environment pinned to Python 3.10.
+
+### Get the repository
+
 Clone the repository and enter it:
 
 ```text
 git clone https://github.com/TristanWhitmarsh/ScanXm_VISTA3D_server.git
 cd ScanXm_VISTA3D_server
 ```
+
+### Without Git
+
+If the `git` command is not available, either install Git or download the
+repository as a ZIP. Both give the same result.
+
+#### Option 1: install Git
+
+On Windows, download the installer from
+[git-scm.com](https://git-scm.com/download/win) and run it. The default options
+are suitable. Close and reopen the terminal afterwards so the updated `PATH`
+takes effect.
+
+On Debian/Ubuntu:
+
+```text
+sudo apt install git
+```
+
+On Fedora/RHEL:
+
+```text
+sudo dnf install git
+```
+
+Alternatively, because Miniconda/Anaconda is already required, Git can be
+installed with Conda instead. This needs no administrator rights and works on
+both Windows and Linux:
+
+```text
+conda install -y -n base -c conda-forge git
+```
+
+Confirm it is available, then use the `git clone` command above:
+
+```text
+git --version
+```
+
+#### Option 2: download a ZIP
+
+1. Open
+   [the repository page](https://github.com/TristanWhitmarsh/ScanXm_VISTA3D_server)
+   in a browser.
+2. Click the green **Code** button and choose **Download ZIP**.
+3. Extract the ZIP to a folder of your choice. On Windows, right-click the
+   downloaded file and choose **Extract All**. On Linux, run
+   `unzip ScanXm_VISTA3D_server-main.zip`.
+4. Open a terminal in the extracted folder: the **Anaconda Prompt** on Windows,
+   or the ordinary terminal on Linux.
+
+GitHub names the extracted folder `ScanXm_VISTA3D_server-main` rather than
+`ScanXm_VISTA3D_server`, so enter it with:
+
+```text
+cd ScanXm_VISTA3D_server-main
+```
+
+The folder name itself does not matter, but every command below must be run from
+inside it, and `NV-Segment-CT/` must later end up directly inside it, beside
+`ScanXm_VISTA3D_server.py`.
 
 Create a dedicated Conda environment:
 
