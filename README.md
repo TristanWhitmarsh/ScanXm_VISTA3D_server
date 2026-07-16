@@ -63,22 +63,21 @@ Confirm the installation on either system:
 conda --version
 ```
 
+Accept the Anaconda Terms of Service for the default package channels. These
+commands are required by recent Conda installations before an environment can
+be created:
+
+```text
+conda tos accept --override-channels --channel https://repo.anaconda.com/pkgs/main
+conda tos accept --override-channels --channel https://repo.anaconda.com/pkgs/r
+```
+
 The Python version bundled with Miniconda does not matter, because the steps
 below create a separate environment pinned to Python 3.10.
 
 ### Get the repository
 
-Clone the repository and enter it:
-
-```text
-git clone https://github.com/TristanWhitmarsh/ScanXm_VISTA3D_server.git
-cd ScanXm_VISTA3D_server
-```
-
-### Without Git
-
-If the `git` command is not available, either install Git or download the
-repository as a ZIP. Both give the same result.
+Choose either Option 1 (Git) or Option 2 (ZIP). Both give the same result.
 
 #### Option 1: install Git
 
@@ -107,10 +106,17 @@ both Windows and Linux:
 conda install -y -n base -c conda-forge git
 ```
 
-Confirm it is available, then use the `git clone` command above:
+Confirm Git is available:
 
 ```text
 git --version
+```
+
+Now clone the repository and enter it:
+
+```text
+git clone https://github.com/TristanWhitmarsh/ScanXm_VISTA3D_server.git
+cd ScanXm_VISTA3D_server
 ```
 
 #### Option 2: download a ZIP
@@ -135,6 +141,11 @@ cd ScanXm_VISTA3D_server-main
 The folder name itself does not matter, but every command below must be run from
 inside it, and `NV-Segment-CT/` must later end up directly inside it, beside
 `ScanXm_VISTA3D_server.py`.
+
+### Create the Conda environment
+
+Option 1 and Option 2 both continue from here. Make sure the terminal is inside
+the repository folder before running these commands.
 
 Create a dedicated Conda environment:
 
