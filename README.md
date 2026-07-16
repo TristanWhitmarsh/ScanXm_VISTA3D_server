@@ -8,8 +8,6 @@ It includes:
 
 - `CT_Full` performs automatic multi-structure CT segmentation.
 - `CT_Interactive` performs point-guided 3D CT segmentation.
-- `NV-Segment-CTMR` is not supported because its model weights have
-  non-commercial restrictions.
 - Uploaded CT data is processed in memory. Chunk files are temporary and are
   deleted after loading, on client changes, and when ScanXm requests cleanup.
 
